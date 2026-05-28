@@ -6,8 +6,6 @@ const jumpButtons = Array.from(document.querySelectorAll("[data-go-to]"));
 const compareToggleButtons = Array.from(document.querySelectorAll("[data-compare-target]"));
 const comparePanels = Array.from(document.querySelectorAll("[data-compare-panel]"));
 const compareToggle = document.querySelector(".compare-toggle");
-const compareTogglePill = document.querySelector(".compare-toggle-pill");
-const compareOrder = comparePanels.map((panel) => panel.dataset.comparePanel);
 
 let currentIndex = 0;
 const historyStack = [];
@@ -79,14 +77,11 @@ function setComparePanel(target) {
 }
 
 function updateCompareTogglePill() {
-  const activeButton = compareToggleButtons.find((button) => button.classList.contains("is-active"));
-
-  if (!compareToggle || !compareTogglePill || !activeButton) {
+  if (!compareToggle) {
     return;
   }
 
-  compareTogglePill.style.width = `${activeButton.offsetWidth}px`;
-  compareTogglePill.style.transform = `translateX(${activeButton.offsetLeft}px)`;
+  compareToggle.dataset.active = activeCompareTarget;
   compareToggle.classList.remove("is-jiggling");
   void compareToggle.offsetWidth;
   compareToggle.classList.add("is-jiggling");
@@ -141,5 +136,3 @@ comparePanels.forEach((panel) => {
   panel.classList.toggle("is-active", panel.dataset.comparePanel === activeCompareTarget);
 });
 updateCompareTogglePill();
-
-window.addEventListener("resize", updateCompareTogglePill);
