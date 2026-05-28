@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Progress Report 26.05.28.</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <main class="presentation" aria-live="polite">
+      <section class="slide is-active" data-slide="page-1">
+        <div class="slide-shell">
+          <img class="slide-image" src="./assets/pdf_pages/page-1.png" alt="PDF 1페이지 표지" />
+
+          <div class="cover-jump-panel">
+            <button type="button" class="jump-card" data-go-to="page-2">
+              <span class="jump-number">1</span>
+              <strong>프로필</strong>
+              <p>발표자 소개와 연구 주제</p>
+            </button>
+            <button type="button" class="jump-card" data-go-to="page-3">
+              <span class="jump-number">2</span>
+              <strong>시뮬레이션</strong>
+              <p>1D · 2D 진행 상황</p>
+            </button>
+            <button type="button" class="jump-card" data-go-to="page-4">
+              <span class="jump-number">3</span>
+              <strong>기타업무 1</strong>
+              <p>번역 작업 진행 상황</p>
+            </button>
+            <button type="button" class="jump-card" data-go-to="page-5">
+              <span class="jump-number">4</span>
+              <strong>기타업무 2</strong>
+              <p>HETERO-SC 관련 진행 상황</p>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide" data-slide="page-2">
+        <div class="slide-shell">
+          <img class="slide-image" src="./assets/pdf_pages/page-2.png" alt="PDF 2페이지 발표자 소개" />
+          <button type="button" class="slide-home-button" data-go-to="page-1">처음으로</button>
+        </div>
+      </section>
+
+      <section class="slide" data-slide="page-3">
+        <div class="slide-shell">
+          <img class="slide-image" src="./assets/pdf_pages/page-3.png" alt="PDF 3페이지 1D 2D simulation 진행 상황" />
+          <div class="slide-branch-panel">
+            <button type="button" class="slide-branch-button" data-go-to="page-7">0.1 vs 1 비교 보기</button>
+          </div>
+          <button type="button" class="slide-home-button" data-go-to="page-1">처음으로</button>
+        </div>
+      </section>
+
+      <section class="slide" data-slide="page-4">
+        <div class="slide-shell">
+          <img class="slide-image" src="./assets/pdf_pages/page-4.png" alt="PDF 4페이지 Translate pptx into ENG 진행 상황" />
+          <button type="button" class="slide-home-button" data-go-to="page-1">처음으로</button>
+        </div>
+      </section>
+
+      <section class="slide" data-slide="page-5">
+        <div class="slide-shell">
+          <img class="slide-image" src="./assets/pdf_pages/page-5.png" alt="PDF 5페이지 HETERO-SC 관련 진행 상황" />
+          <button type="button" class="slide-home-button" data-go-to="page-1">처음으로</button>
+        </div>
+      </section>
+
+      <section class="slide" data-slide="page-6">
+        <div class="slide-shell">
+          <img class="slide-image" src="./assets/pdf_pages/page-6.png" alt="PDF 6페이지 감사합니다" />
+          <button type="button" class="slide-home-button" data-go-to="page-1">처음으로</button>
+        </div>
+      </section>
+
+      <section class="slide" data-slide="page-7">
+        <div class="slide-shell slide-generated">
+          <div class="generated-watermark">Simulation Compare</div>
+          <div class="compare-toggle" role="tablist" aria-label="Simulation compare toggle">
+            <button
+              type="button"
+              class="compare-toggle-button is-active"
+              data-compare-target="condition-01"
+              aria-selected="true"
+            >
+              0.1
+            </button>
+            <button
+              type="button"
+              class="compare-toggle-button"
+              data-compare-target="condition-1"
+              aria-selected="false"
+            >
+              1
+            </button>
+          </div>
+          <h2>0.1cm vs 1cm</h2>
+
+          <div class="compare-panels">
+            <article class="compare-card is-active" data-compare-panel="condition-01">
+              <img
+                class="compare-image"
+                src="./assets/fp_control_windows/result_0.1_control_0_FP_control_0_18000_18800ms.png"
+                alt="0.1cm FP control window 결과 이미지"
+              />
+            </article>
+
+            <article class="compare-card" data-compare-panel="condition-1">
+              <img
+                class="compare-image"
+                src="./assets/fp_control_windows/result_control_0_FP_control_0_18000_18800ms.png"
+                alt="1cm FP control window 결과 이미지"
+              />
+            </article>
+          </div>
+
+          <div class="generated-actions">
+            <button type="button" class="generated-button" data-go-to="page-3">시뮬레이션으로 돌아가기</button>
+            <button type="button" class="generated-button generated-button-secondary" data-go-to="page-1">처음으로</button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div class="presentation-controls" aria-label="Slide controls">
+      <button type="button" class="nav-button" id="prev-slide-button">이전</button>
+      <button type="button" class="nav-button" id="next-slide-button">다음</button>
+    </div>
+    <script src="./script.js"></script>
+  </body>
+</html>
