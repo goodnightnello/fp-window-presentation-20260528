@@ -210,10 +210,13 @@ body {
   display: flex;
   min-height: 0;
   margin-top: 0.15rem;
+  position: relative;
+  overflow: hidden;
 }
 
 .compare-card {
-  display: none;
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   padding: 0.5rem;
@@ -221,12 +224,38 @@ body {
   border-radius: 0;
   background: transparent;
   text-align: center;
+  opacity: 0;
+  pointer-events: none;
 }
 
 .compare-card.is-active {
   display: flex;
   align-items: center;
   justify-content: center;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.compare-card.is-before {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.compare-card.is-entering-from-right {
+  animation: slideInFromRight 420ms ease forwards;
+}
+
+.compare-card.is-entering-from-left {
+  animation: slideInFromLeft 420ms ease forwards;
+}
+
+.compare-card.is-exiting-to-left {
+  animation: slideOutToLeft 420ms ease forwards;
+}
+
+.compare-card.is-exiting-to-right {
+  animation: slideOutToRight 420ms ease forwards;
 }
 
 .compare-image {
@@ -240,6 +269,50 @@ body {
   background: #ffffff;
   box-shadow: 0 12px 28px rgba(20, 20, 20, 0.08);
   object-fit: contain;
+}
+
+@keyframes slideInFromRight {
+  from {
+    transform: translateX(18%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInFromLeft {
+  from {
+    transform: translateX(-18%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOutToLeft {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(-18%);
+    opacity: 0;
+  }
+}
+
+@keyframes slideOutToRight {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(18%);
+    opacity: 0;
+  }
 }
 
 .generated-actions {

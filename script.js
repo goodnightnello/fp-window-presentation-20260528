@@ -5,9 +5,12 @@ const nextButton = document.querySelector("#next-slide-button");
 const jumpButtons = Array.from(document.querySelectorAll("[data-go-to]"));
 const compareToggleButtons = Array.from(document.querySelectorAll("[data-compare-target]"));
 const comparePanels = Array.from(document.querySelectorAll("[data-compare-panel]"));
+const compareOrder = comparePanels.map((panel) => panel.dataset.comparePanel);
 
 let currentIndex = 0;
 const historyStack = [];
+let activeCompareTarget = "condition-01";
+let compareAnimationFrame = null;
 
 function renderSlide(index) {
   currentIndex = Math.max(0, Math.min(index, slides.length - 1));
@@ -55,6 +58,17 @@ jumpButtons.forEach((button) => {
 });
 
 function setComparePanel(target) {
+  if (target === activeCompareTarget) {
+    return;
+  }
+
+  const previousTarget = activeCompareTarget;
+  const previousPanel = comparePanels.find((panel) => panel.dataset.comparePanel === previousTarget);
+  const nextPanel = comparePanels.find((panel) => panel.dataset.comparePanel === target);
+  const previousOrder = compareOrder.indexOf(previousTarget);
+  const nextOrder = compareOrder.indexOf(target);
+  const movingForward = nextOrder > previousOrder;
+
   compareToggleButtons.forEach((button) => {
     const isActive = button.dataset.compareTarget === target;
     button.classList.toggle("is-active", isActive);
@@ -62,9 +76,37 @@ function setComparePanel(target) {
   });
 
   comparePanels.forEach((panel) => {
-    const isActive = panel.dataset.comparePanel === target;
-    panel.classList.toggle("is-active", isActive);
+    panel.classList.remove(
+      "is-active",
+      "is-before",
+      "is-entering-from-right",
+      "is-entering-from-left",
+      "is-exiting-to-left",
+      "is-exiting-to-right",
+    );
   });
+
+  if (!previousPanel || !nextPanel) {
+    nextPanel?.classList.add("is-active");
+    activeCompareTarget = target;
+    return;
+  }
+
+  previousPanel.classList.add("is-before", movingForward ? "is-exiting-to-left" : "is-exiting-to-right");
+  nextPanel.classList.add("is-before", movingForward ? "is-entering-from-right" : "is-entering-from-left");
+
+  if (compareAnimationFrame) {
+    clearTimeout(compareAnimationFrame);
+  }
+
+  compareAnimationFrame = setTimeout(() => {
+    previousPanel.classList.remove("is-before", "is-exiting-to-left", "is-exiting-to-right");
+    nextPanel.classList.remove("is-before", "is-entering-from-right", "is-entering-from-left");
+    nextPanel.classList.add("is-active");
+    compareAnimationFrame = null;
+  }, 430);
+
+  activeCompareTarget = target;
 }
 
 compareToggleButtons.forEach((button) => {
@@ -112,4 +154,6 @@ document.addEventListener("keydown", (event) => {
 });
 
 renderSlide(0);
-setComparePanel("condition-01");
+comparePanels.forEach((panel) => {
+  panel.classList.toggle("is-active", panel.dataset.comparePanel === activeCompareTarget);
+});
